@@ -1,11 +1,14 @@
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 module.exports = (robot, scripts) => {
-  const scriptsPath = path.resolve(__dirname, "src");
+  const scriptsPath = path.resolve(__dirname, 'src/handlers');
 
-  if (scripts && !scripts.includes("*")) {
-    if (scripts.includes(script)) robot.loadFile(scriptsPath, script);
-  } else {
-    robot.loadFile(scriptsPath, script);
-  }
+  fs.readdirSync(scriptsPath).each((script) => {
+    if (scripts && !scripts.includes('*')) {
+      if (scripts.includes(script)) robot.loadFile(scriptsPath, script);
+    } else {
+      robot.loadFile(scriptsPath, script);
+    }
+  });
 };

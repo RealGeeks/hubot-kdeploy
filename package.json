@@ -5,7 +5,7 @@
   "author": "Lars Levie <lars@realgeeks.com>",
   "main": "index.js",
   "scripts": {
-    "test": "bin/test"
+    "test": "echo 0 && echo 'No tests'"
   },
   "repository": {
     "type": "git",

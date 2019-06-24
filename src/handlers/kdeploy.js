@@ -35,7 +35,7 @@ const deploySyntax = new RegExp(
 
 module.exports = (robot) => {
   // hubot kdeploy mack/master to am1
-  robot.respond(deploySyntax, (msg) => {
+  robot.respond(deploySyntax, async (msg) => {
     const name = msg.match[1];
     const ref = msg.match[2];
     const target = msg.match[3];
@@ -44,38 +44,43 @@ module.exports = (robot) => {
     const room = robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(msg.message.user.room)
       .name;
 
-    got.post('/deployments', {
-      baseUrl: mackHost,
-      headers: {
-        Authorization: `Bearer ${mackApiToken}`,
-        'Content-Type': 'application/json',
-      },
-      json: true,
-      body: {
-        name,
-        source: {
-          type: 'git',
-          configRepositoryUrl: 'git@github.com:RealGeeks/geekstack.git',
-          configRepository: 'realgeeks/geekstack',
-          configBranch: 'test-mack',
-          repository: 'realgeeks/mack',
-          branch: ref || 'master',
+    try {
+      await got.post('/deployments', {
+        baseUrl: mackHost,
+        headers: {
+          Authorization: `Bearer ${mackApiToken}`,
+          'Content-Type': 'application/json',
         },
-        config: {
-          target: target || 'am1',
-          strategy: 'kubernetes/kustomize',
-          path: 'kube-config/infra/mack',
-          imageName: `558529356944.dkr.ecr.us-east-1.amazonaws.com/${name}`,
+        json: true,
+        timeout: 5000,
+        body: {
+          name,
+          source: {
+            type: 'git',
+            configRepositoryUrl: 'git@github.com:RealGeeks/geekstack.git',
+            configRepository: 'realgeeks/geekstack',
+            configBranch: 'test-mack',
+            repository: 'realgeeks/mack',
+            branch: ref || 'master',
+          },
+          config: {
+            target: target || 'am1',
+            strategy: 'kubernetes/kustomize',
+            path: 'kube-config/infra/mack',
+            imageName: `558529356944.dkr.ecr.us-east-1.amazonaws.com/${name}`,
+          },
+          notify: {
+            adapter: 'slack',
+            room,
+            user,
+            userName: user.name,
+          },
         },
-        notify: {
-          adapter: 'slack',
-          room,
-          user,
-          userName: user.name,
-        },
-      },
-    });
+      });
 
-    msg.reply("Ok, I'm working on your deploy.");
+      msg.reply("Ok, I'm working on your deploy.");
+    } catch (err) {
+      msg.reply("Looks like I'm kaving trouble.");
+    }
   });
 };

@@ -61,7 +61,7 @@ module.exports = (robot) => {
             configRepositoryUrl: 'git@github.com:RealGeeks/geekstack.git',
             configRepository: 'realgeeks/geekstack',
             configBranch: 'test-mack',
-            repository: 'realgeeks/mack',
+            repository: `realgeeks/${name}`,
             branch: ref || 'master',
           },
           config: {

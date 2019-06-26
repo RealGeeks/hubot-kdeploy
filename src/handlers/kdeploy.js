@@ -53,6 +53,7 @@ module.exports = (robot) => {
         },
         json: true,
         timeout: 5000,
+        retry: 0,
         body: {
           name,
           source: {

@@ -15,8 +15,8 @@
 
 const got = require('got');
 
-const mackHost = process.env.MACK_HOST;
-const mackApiToken = process.env.MACK_API_KEY;
+const mackHost = process.env.HUBOT_KDEPLOY_MACK_HOST;
+const mackApiToken = process.env.HUBOT_KDEPLOY_MACK_API_KEY;
 const validSlug = '([-_\\.0-9a-z]+)';
 const prefix = 'unstable-kdeploy';
 

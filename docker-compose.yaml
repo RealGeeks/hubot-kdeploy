@@ -4,8 +4,8 @@ services:
   plugin:
     build: .
     environment:
-      MACK_HOST: http://docker.for.mac.localhost:8001
-      MACK_API_KEY: FnopSlfyK6PocLyvCfZyCSJWgor4FZ2L
+      HUBOT_KDEPLOY_MACK_HOST: http://docker.for.mac.localhost:8001
+      HUBOT_KDEPLOY_MACK_API_KEY: FnopSlfyK6PocLyvCfZyCSJWgor4FZ2L
     volumes:
       - ./src:/opt/hubot-kdeploy/src
       - ./bin:/opt/hubot-kdeploy/bin

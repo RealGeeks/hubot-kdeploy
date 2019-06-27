@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npx mocha "./tests/**/*.test.js"
+npx mocha --opts "./tests/mocha.opts" "./tests/**/*.test.js"

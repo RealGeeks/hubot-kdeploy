@@ -81,6 +81,7 @@ module.exports = (robot) => {
 
       msg.reply("Ok, I'm working on your deploy.");
     } catch (err) {
+      robot.logger.error(err);
       msg.reply("Looks like I'm kaving trouble.");
     }
   });

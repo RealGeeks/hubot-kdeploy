@@ -12,6 +12,17 @@ nock('https://mack.stg.rg-infra.com')
   .reply(200, {});
 
 describe('kdeploy', () => {
+  before(() => {
+    nock('http://example.com', { encodedQueryParams: true })
+      .persist()
+      .post('/deployments')
+      .reply(200);
+  });
+
+  after(() => {
+    nock.restore();
+  });
+
   beforeEach(() => {
     this.room = helper.createRoom();
   });
@@ -20,43 +31,54 @@ describe('kdeploy', () => {
     this.room.destroy();
   });
 
-  it('responds to simple deploy', async () => {
-    await this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable`).then(() => {
+  it('responds to simple deploy', (done) => {
+    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable`);
+
+    setTimeout(() => {
       expect(this.room.messages).to.eql([
         ['alice', `@hubot ${prefix} nameOfDeployable`],
         ['hubot', "@alice Ok, I'm working on your deploy."],
       ]);
-    });
+
+      done();
+    }, 50);
   });
 
-  it('responds to deploy with branch', async () => {
-    await this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch`).then(() => {
+  it('responds to deploy with branch', (done) => {
+    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch`);
+
+    setTimeout(() => {
       expect(this.room.messages).to.eql([
         ['alice', `@hubot ${prefix} nameOfDeployable/branch`],
         ['hubot', "@alice Ok, I'm working on your deploy."],
       ]);
-    });
+
+      done();
+    }, 50);
   });
 
-  it('responds to simple deploy with branch and simple target', async () => {
-    await this.room.user
-      .say('alice', `@hubot ${prefix} nameOfDeployable/branch to targetName`)
-      .then(() => {
-        expect(this.room.messages).to.eql([
-          ['alice', `@hubot ${prefix} nameOfDeployable/branch to targetName`],
-          ['hubot', "@alice Ok, I'm working on your deploy."],
-        ]);
-      });
+  it('responds to simple deploy with branch and simple target', (done) => {
+    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch to targetName`);
+
+    setTimeout(() => {
+      expect(this.room.messages).to.eql([
+        ['alice', `@hubot ${prefix} nameOfDeployable/branch to targetName`],
+        ['hubot', "@alice Ok, I'm working on your deploy."],
+      ]);
+
+      done();
+    }, 50);
   });
 
-  it('responds to simple deploy with branch and target and subtarget', async () => {
-    await this.room.user
-      .say('alice', `@hubot ${prefix} nameOfDeployable/branch to targetName/subTarget`)
-      .then(() => {
-        expect(this.room.messages).to.eql([
-          ['alice', `@hubot ${prefix} nameOfDeployable/branch to targetName/subTarget`],
-          ['hubot', "@alice Ok, I'm working on your deploy."],
-        ]);
-      });
+  it('responds to simple deploy with branch and target and subtarget', (done) => {
+    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch to targetName/subTarget`);
+
+    setTimeout(() => {
+      expect(this.room.messages).to.eql([
+        ['alice', `@hubot ${prefix} nameOfDeployable/branch to targetName/subTarget`],
+        ['hubot', "@alice Ok, I'm working on your deploy."],
+      ]);
+      done();
+    }, 50);
   });
 });

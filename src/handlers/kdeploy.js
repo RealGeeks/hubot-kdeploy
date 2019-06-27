@@ -41,8 +41,7 @@ module.exports = (robot) => {
     const target = msg.match[3];
 
     const user = robot.brain.userForId(msg.envelope.user.id);
-    const room = robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(msg.message.user.room)
-      .name;
+    const { room } = msg.message.user;
 
     try {
       await got.post('/deployments', {

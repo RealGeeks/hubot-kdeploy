@@ -14,6 +14,7 @@
 //   Lars Levie <lars@realgeeks.com>
 
 const got = require('got');
+const buildPayload = require('../functions/build-payload');
 
 const mackHost = process.env.HUBOT_KDEPLOY_MACK_HOST;
 const mackApiToken = process.env.HUBOT_KDEPLOY_MACK_API_KEY;
@@ -23,7 +24,7 @@ const prefix = 'unstable-kdeploy';
 const deploySyntax = new RegExp(
   [
     `(${prefix}(?:\\:[^\\s]+)?)\\s+`,
-    validSlug, // application name, from apps.json
+    validSlug, // application name, from kdeploy.config.json
     '(?:\\/([^\\s]+))?', // Branch or sha to deploy, optional
     '(?:\\s+(?:to|in|on)\\s+', // http://i.imgur.com/3KqMoRi.gif, optional
     validSlug, // target to release to, optional
@@ -39,9 +40,19 @@ module.exports = (robot) => {
     const name = msg.match[2];
     const ref = msg.match[3];
     const target = msg.match[4];
+    const adapter = robot.adapterName;
 
     const user = robot.brain.userForId(msg.envelope.user.id);
     const { room } = msg.message.user;
+
+    const payload = buildPayload({
+      adapter,
+      name,
+      ref,
+      room,
+      target,
+      user,
+    });
 
     try {
       await got.post('/deployments', {
@@ -53,29 +64,7 @@ module.exports = (robot) => {
         json: true,
         timeout: 5000,
         retry: 0,
-        body: {
-          name,
-          source: {
-            type: 'git',
-            configRepositoryUrl: 'git@github.com:RealGeeks/geekstack.git',
-            configRepository: 'realgeeks/geekstack',
-            configBranch: 'test-mack',
-            repository: `realgeeks/${name}`,
-            branch: ref || 'master',
-          },
-          config: {
-            target: target || 'am1',
-            strategy: 'kubernetes/kustomize',
-            path: 'kube-config/infra/mack',
-            imageName: `558529356944.dkr.ecr.us-east-1.amazonaws.com/${name}`,
-          },
-          notify: {
-            adapter: 'slack',
-            room,
-            user,
-            userName: user.name,
-          },
-        },
+        body: payload,
       });
 
       msg.reply("Ok, I'm working on your deploy.");

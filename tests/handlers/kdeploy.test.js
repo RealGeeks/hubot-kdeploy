@@ -32,11 +32,11 @@ describe('kdeploy', () => {
   });
 
   it('responds to simple deploy', (done) => {
-    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable`);
+    this.room.user.say('alice', `@hubot ${prefix} mack`);
 
     setTimeout(() => {
       expect(this.room.messages).to.eql([
-        ['alice', `@hubot ${prefix} nameOfDeployable`],
+        ['alice', `@hubot ${prefix} mack`],
         ['hubot', "@alice Ok, I'm working on your deploy."],
       ]);
 
@@ -45,11 +45,11 @@ describe('kdeploy', () => {
   });
 
   it('responds to deploy with branch', (done) => {
-    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch`);
+    this.room.user.say('alice', `@hubot ${prefix} mack/branch`);
 
     setTimeout(() => {
       expect(this.room.messages).to.eql([
-        ['alice', `@hubot ${prefix} nameOfDeployable/branch`],
+        ['alice', `@hubot ${prefix} mack/branch`],
         ['hubot', "@alice Ok, I'm working on your deploy."],
       ]);
 
@@ -58,11 +58,11 @@ describe('kdeploy', () => {
   });
 
   it('responds to simple deploy with branch and simple target', (done) => {
-    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch to targetName`);
+    this.room.user.say('alice', `@hubot ${prefix} mack/branch to am21`);
 
     setTimeout(() => {
       expect(this.room.messages).to.eql([
-        ['alice', `@hubot ${prefix} nameOfDeployable/branch to targetName`],
+        ['alice', `@hubot ${prefix} mack/branch to am21`],
         ['hubot', "@alice Ok, I'm working on your deploy."],
       ]);
 
@@ -71,11 +71,11 @@ describe('kdeploy', () => {
   });
 
   it('responds to simple deploy with branch and target and subtarget', (done) => {
-    this.room.user.say('alice', `@hubot ${prefix} nameOfDeployable/branch to targetName/subTarget`);
+    this.room.user.say('alice', `@hubot ${prefix} mack/branch to am21/subTarget`);
 
     setTimeout(() => {
       expect(this.room.messages).to.eql([
-        ['alice', `@hubot ${prefix} nameOfDeployable/branch to targetName/subTarget`],
+        ['alice', `@hubot ${prefix} mack/branch to am21/subTarget`],
         ['hubot', "@alice Ok, I'm working on your deploy."],
       ]);
       done();

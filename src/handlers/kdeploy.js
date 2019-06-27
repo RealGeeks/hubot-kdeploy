@@ -36,9 +36,9 @@ const deploySyntax = new RegExp(
 module.exports = (robot) => {
   // hubot kdeploy mack/master to am1
   robot.respond(deploySyntax, async (msg) => {
-    const name = msg.match[1];
-    const ref = msg.match[2];
-    const target = msg.match[3];
+    const name = msg.match[2];
+    const ref = msg.match[3];
+    const target = msg.match[4];
 
     const user = robot.brain.userForId(msg.envelope.user.id);
     const { room } = msg.message.user;

@@ -5,11 +5,12 @@ services:
     build: .
     environment:
       HUBOT_KDEPLOY_MACK_HOST: http://docker.for.mac.localhost:8001
-      HUBOT_KDEPLOY_MACK_API_KEY: FnopSlfyK6PocLyvCfZyCSJWgor4FZ2L
+      HUBOT_KDEPLOY_MACK_API_KEY:
     volumes:
       - ./src:/opt/hubot-kdeploy/src
       - ./bin:/opt/hubot-kdeploy/bin
       - ./tests:/opt/hubot-kdeploy/tests
       - ./.eslintrc:/opt/hubot-kdeploy/.eslintrc
+    depends_on: mack
   mack:
     build: .

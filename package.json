@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/common-tags": "^1.8.0",
     "@types/hubot": "^2.19.5",
     "@types/mocha": "^5.2.7",
+    "@types/yup": "^0.26.18",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -33,8 +33,8 @@
     "nock": "^10.0.6"
   },
   "dependencies": {
-    "common-tags": "^1.8.0",
     "got": "^9.6.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "yup": "^0.27.0"
   }
 }

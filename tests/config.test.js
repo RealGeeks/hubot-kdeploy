@@ -1,12 +1,30 @@
-const fs = require('fs');
-const mockFs = require('mock-fs');
+const chai = require('chai');
+const config = require('../src/config');
 
-const configFixture = fs.readFileSync('tests/fixtures/kdeploy.config.json');
+const { expect } = chai;
 
-mockFs({
-  'kdeploy.config.json': configFixture,
+describe('config', () => {
+  it('loads app from a JSON config file', () => {
+    expect(config).to.eql({
+      apps: {
+        mack: {
+          configRepo: 'realgeeks/geekstack',
+          configRepoPath: 'kube-config/infra/mack',
+          defaultBranch: 'master',
+          imageName: '558529356944.dkr.ecr.us-east-1.amazonaws.com/mack',
+          name: 'mack',
+          requiredStatuses: ['ci/circleci', 'docker/builder'],
+          strategy: 'kubernetes/kustomize',
+          targets: ['am1', 'am21'],
+        },
+      },
+      repos: {
+        'realgeeks/geekstack': {
+          branch: 'master',
+          name: 'realgeeks/geekstack',
+          url: 'git@github.com:RealGeeks/geekstack.git',
+        },
+      },
+    });
+  });
 });
-
-const config = fs.readFileSync('kdeploy.config.json').toString();
-
-mockFs.restore();

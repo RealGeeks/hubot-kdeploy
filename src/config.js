@@ -27,8 +27,8 @@ const loadConfig = () => {
 
     return { apps, repos };
   } catch (err) {
+    console.log('kdeploy: config missing or malformed');
     console.error(err);
-    console.log("kdeploy won't work: config missing or malformed");
 
     return null;
   }

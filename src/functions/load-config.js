@@ -16,6 +16,7 @@ const buildAppSchema = validRepos => yup.object().shape({
   defaultBranch: yup.string().notRequired(),
   imageName: yup.string().required(),
   name: yup.string().required(),
+  repo: yup.string().required(),
   requiredStatuses: yup
     .array()
     .of(yup.string().oneOf(['ci/circleci', 'docker/builder']))

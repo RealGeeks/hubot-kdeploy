@@ -9,6 +9,7 @@ describe('config', () => {
       defaultBranch: 'master',
       imageName: '558529356944.dkr.ecr.us-east-1.amazonaws.com/mack',
       name: 'mack',
+      repo: 'realgeeks/mack',
       requiredStatuses: ['ci/circleci', 'docker/builder'],
       strategy: 'kubernetes/kustomize',
       targets: ['am1', 'am21'],

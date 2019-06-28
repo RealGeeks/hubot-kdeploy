@@ -23,7 +23,7 @@ module.exports = ({
       configRepositoryUrl: configRepo.url,
       configRepository: configRepo.name,
       configBranch: configRepo.branch,
-      repository: configRepo.name,
+      repository: appConfig.repo,
       branch: ref || appConfig.defaultBranch || 'master',
     },
     config: {

@@ -13,6 +13,7 @@
       "defaultBranch": "master",
       "imageName": "558529356944.dkr.ecr.us-east-1.amazonaws.com/mack",
       "name": "mack",
+      "repo": "realgeeks/mack",
       "requiredStatuses": ["ci/circleci", "docker/builder"],
       "strategy": "kubernetes/kustomize",
       "targets": ["am1", "am21"]
@@ -22,6 +23,7 @@
       "configRepoPath": "kube-config/infra/basic",
       "imageName": "558529356944.dkr.ecr.us-east-1.amazonaws.com/basic",
       "name": "basic",
+      "repo": "realgeeks/basic",
       "strategy": "kubernetes/kustomize",
       "targets": ["am1", "am21"]
     },
@@ -29,6 +31,7 @@
       "configRepoPath": "kube-config/infra/basic",
       "imageName": "558529356944.dkr.ecr.us-east-1.amazonaws.com/basic",
       "name": "invalidConfig",
+      "repo": "realgeeks/invalidConfig",
       "strategy": "kubernetes/kustomize",
       "targets": ["am1", "am21", "foo"]
     },
@@ -38,6 +41,7 @@
       "defaultBranch": "foobar",
       "imageName": "558529356944.dkr.ecr.us-east-1.amazonaws.com/basic",
       "name": "withDefaults",
+      "repo": "realgeeks/basic",
       "strategy": "kubernetes/kustomize",
       "targets": ["am1", "am21"]
     }

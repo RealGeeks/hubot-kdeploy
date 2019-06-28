@@ -7,5 +7,5 @@ RUN npm i --no-save
 
 COPY bin ./bin
 COPY src ./src
-COPY tests ./tests
+COPY test ./test
 COPY .eslintrc ./.eslintrc

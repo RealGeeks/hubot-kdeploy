@@ -9,7 +9,7 @@ services:
     volumes:
       - ./src:/opt/hubot-kdeploy/src
       - ./bin:/opt/hubot-kdeploy/bin
-      - ./tests:/opt/hubot-kdeploy/tests
+      - ./test:/opt/hubot-kdeploy/test
       - ./.eslintrc:/opt/hubot-kdeploy/.eslintrc
     depends_on: mack
   mack:

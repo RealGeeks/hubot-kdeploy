@@ -14,7 +14,9 @@
 //   Lars Levie <lars@realgeeks.com>
 
 const got = require('got');
+const _ = require('lodash');
 const buildPayload = require('../functions/build-payload');
+const config = require('../config');
 
 const mackHost = process.env.HUBOT_KDEPLOY_MACK_HOST;
 const mackApiToken = process.env.HUBOT_KDEPLOY_MACK_API_KEY;
@@ -38,6 +40,9 @@ module.exports = (robot) => {
   // hubot kdeploy mack/master to am1
   robot.respond(deploySyntax, async (msg) => {
     const name = msg.match[2];
+
+    if (_.includes(['list'], name)) return;
+
     const ref = msg.match[3];
     const target = msg.match[4];
     const adapter = robot.adapterName;
@@ -72,5 +77,11 @@ module.exports = (robot) => {
       robot.logger.error(err);
       msg.reply("Looks like I'm kaving trouble.");
     }
+  });
+
+  robot.respond(new RegExp(`(${prefix})\\s+(list)`), (msg) => {
+    const deployables = _.map(config.apps, app => `${app.name} to [${app.targets.join(', ')}]`);
+
+    msg.reply('Here are the apps I can deploy: ', ...deployables);
   });
 };

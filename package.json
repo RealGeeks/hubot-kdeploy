@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hubot-scripts/hubot-kdeploy.git"
+    "url": "git://github.com/realgeeks/hubot-kdeploy.git"
   },
   "bugs": {
-    "url": "https://github.com/hubot-scripts/hubot-kdeploy/issues"
+    "url": "https://github.com/realgeeks/hubot-kdeploy/issues"
   },
   "peerDependencies": {
     "hubot": ">=2.0"

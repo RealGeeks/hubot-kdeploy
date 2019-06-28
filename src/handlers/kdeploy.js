@@ -50,14 +50,22 @@ module.exports = (robot) => {
     const user = robot.brain.userForId(msg.envelope.user.id);
     const { room } = msg.message.user;
 
-    const payload = buildPayload({
-      adapter,
-      name,
-      ref,
-      room,
-      target,
-      user,
-    });
+    let payload;
+
+    try {
+      payload = buildPayload({
+        adapter,
+        name,
+        ref,
+        room,
+        target,
+        user,
+      });
+    } catch (err) {
+      msg.reply(`The config for \`${name}\` is missing or broken.`);
+      robot.logger.error(err);
+      return;
+    }
 
     try {
       await got.post('/deployments', {

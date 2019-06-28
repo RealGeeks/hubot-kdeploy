@@ -7,13 +7,9 @@ const { expect } = chai;
 const helper = new Helper('../../src/handlers/kdeploy.js');
 const prefix = 'unstable-kdeploy';
 
-nock('https://mack.stg.rg-infra.com')
-  .post('/deployments', {})
-  .reply(200, {});
-
 describe('kdeploy {appname}', () => {
   before(() => {
-    nock('http://example.com', { encodedQueryParams: true })
+    nock(/\S*/, { encodedQueryParams: true })
       .persist()
       .post('/deployments')
       .reply(200);
@@ -36,10 +32,7 @@ describe('kdeploy {appname}', () => {
       this.room.user.say('alice', `@hubot ${prefix} mack`);
 
       setTimeout(() => {
-        expect(this.room.messages).to.eql([
-          ['alice', `@hubot ${prefix} mack`],
-          ['hubot', "@alice Ok, I'm working on your deploy."],
-        ]);
+        expect(this.room.messages).to.eql([['alice', `@hubot ${prefix} mack`]]);
 
         done();
       }, 50);
@@ -49,10 +42,7 @@ describe('kdeploy {appname}', () => {
       this.room.user.say('alice', `@hubot ${prefix} mack/branch`);
 
       setTimeout(() => {
-        expect(this.room.messages).to.eql([
-          ['alice', `@hubot ${prefix} mack/branch`],
-          ['hubot', "@alice Ok, I'm working on your deploy."],
-        ]);
+        expect(this.room.messages).to.eql([['alice', `@hubot ${prefix} mack/branch`]]);
 
         done();
       }, 50);
@@ -62,10 +52,7 @@ describe('kdeploy {appname}', () => {
       this.room.user.say('alice', `@hubot ${prefix} mack/branch to am21`);
 
       setTimeout(() => {
-        expect(this.room.messages).to.eql([
-          ['alice', `@hubot ${prefix} mack/branch to am21`],
-          ['hubot', "@alice Ok, I'm working on your deploy."],
-        ]);
+        expect(this.room.messages).to.eql([['alice', `@hubot ${prefix} mack/branch to am21`]]);
 
         done();
       }, 50);
@@ -77,7 +64,6 @@ describe('kdeploy {appname}', () => {
       setTimeout(() => {
         expect(this.room.messages).to.eql([
           ['alice', `@hubot ${prefix} mack/branch to am21/subTarget`],
-          ['hubot', "@alice Ok, I'm working on your deploy."],
         ]);
         done();
       }, 50);

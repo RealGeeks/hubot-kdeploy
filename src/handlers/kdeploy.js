@@ -18,7 +18,6 @@ const _ = require('lodash');
 const buildPayload = require('../functions/build-payload');
 const config = require('../config');
 
-const mackHost = process.env.HUBOT_KDEPLOY_MACK_HOST;
 const mackApiToken = process.env.HUBOT_KDEPLOY_MACK_API_KEY;
 const validSlug = '([-_\\.0-9a-z]+)';
 const prefix = 'unstable-kdeploy';
@@ -69,7 +68,7 @@ module.exports = (robot) => {
 
     try {
       await got.post('/deployments', {
-        baseUrl: mackHost,
+        baseUrl: config.targets[payload.config.target].url,
         headers: {
           Authorization: `Bearer ${mackApiToken}`,
           'Content-Type': 'application/json',
@@ -79,8 +78,6 @@ module.exports = (robot) => {
         retry: 0,
         body: payload,
       });
-
-      msg.reply("Ok, I'm working on your deploy.");
     } catch (err) {
       robot.logger.error(err);
       msg.reply("Looks like I'm kaving trouble.");

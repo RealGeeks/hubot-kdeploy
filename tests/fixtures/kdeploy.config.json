@@ -16,6 +16,23 @@
       "requiredStatuses": ["ci/circleci", "docker/builder"],
       "strategy": "kubernetes/kustomize",
       "targets": ["am1", "am21"]
+    },
+    {
+      "configRepo": "realgeeks/geekstack",
+      "configRepoPath": "kube-config/infra/basic",
+      "imageName": "558529356944.dkr.ecr.us-east-1.amazonaws.com/basic",
+      "name": "basic",
+      "strategy": "kubernetes/kustomize",
+      "targets": ["am1", "am21"]
+    },
+    {
+      "configRepo": "realgeeks/geekstack",
+      "configRepoPath": "kube-config/infra/basic",
+      "defaultBranch": "foobar",
+      "imageName": "558529356944.dkr.ecr.us-east-1.amazonaws.com/basic",
+      "name": "withDefaults",
+      "strategy": "kubernetes/kustomize",
+      "targets": ["am1", "am21"]
     }
   ]
 }

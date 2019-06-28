@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:dubnium-stretch
+        environment:
+          NPM_AUTH_TOKEN: ""
     working_directory: ~/repo
     steps:
       - checkout

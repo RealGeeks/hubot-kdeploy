@@ -7,10 +7,10 @@ const loadConfigFile = () => {
   return JSON.parse(fs.readFileSync(configPath).toString());
 };
 
-const buildAppSchema = validRepos => yup.object().shape({
+const buildAppSchema = ({ repos, targets }) => yup.object().shape({
   configRepo: yup
     .string()
-    .oneOf(validRepos)
+    .oneOf(repos)
     .required(),
   configRepoPath: yup.string().required(),
   defaultBranch: yup.string().notRequired(),
@@ -24,7 +24,7 @@ const buildAppSchema = validRepos => yup.object().shape({
   strategy: yup.string().required(),
   targets: yup
     .array()
-    .of(yup.string().oneOf(['am1', 'am21']))
+    .of(yup.string().oneOf(targets))
     .required(),
 });
 
@@ -33,6 +33,31 @@ const repoSchema = yup.object().shape({
   name: yup.string().required(),
   url: yup.string().required(),
 });
+
+const targetSchema = yup.object().shape({
+  name: yup.string().required(),
+  url: yup.string().required(),
+});
+
+const loadValues = (config, key, schema) => {
+  const values = config[key] || [];
+
+  return _.reduce(
+    values,
+    (acc, value) => {
+      try {
+        schema.validateSync(value, { abortEarly: false });
+        acc[value.name] = value;
+      } catch (err) {
+        console.error(`kdeploy: invalid ${key} config, skipping ${JSON.stringify(value.name)}`);
+        console.error(err);
+      }
+
+      return acc;
+    },
+    {},
+  );
+};
 
 module.exports = () => {
   let config;
@@ -46,39 +71,11 @@ module.exports = () => {
     return null;
   }
 
-  const repos = _.reduce(
-    config.repos,
-    (acc, repo) => {
-      try {
-        repoSchema.validateSync(repo, { abortEarly: false });
-        acc[repo.name] = repo;
-      } catch (err) {
-        console.error(`kdeploy: invalid repo config, skipping ${JSON.stringify(app)}`);
-        console.error(err);
-      }
+  const targets = loadValues(config, 'targets', targetSchema);
+  const repos = loadValues(config, 'repos', repoSchema);
 
-      return acc;
-    },
-    {},
-  );
+  const appSchema = buildAppSchema({ repos: Object.keys(repos), targets: Object.keys(targets) });
+  const apps = loadValues(config, 'apps', appSchema);
 
-  const appSchema = buildAppSchema(Object.keys(repos));
-
-  const apps = _.reduce(
-    config.apps,
-    (acc, app) => {
-      try {
-        appSchema.validateSync(app, { abortEarly: false });
-        acc[app.name] = app;
-      } catch (err) {
-        console.error(`kdeploy: invalid app config, skipping ${JSON.stringify(app)}`);
-        console.error(err);
-      }
-
-      return acc;
-    },
-    {},
-  );
-
-  return { apps, repos };
+  return { targets, apps, repos };
 };

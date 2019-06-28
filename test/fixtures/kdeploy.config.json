@@ -1,4 +1,14 @@
 {
+  "targets": [
+    {
+      "name": "am1",
+      "url": "https://mack.rg-infra.com"
+    },
+    {
+      "name": "am21",
+      "url": "https://mack.stg.rg-infra.com"
+    }
+  ],
   "repos": [
     {
       "branch": "master",

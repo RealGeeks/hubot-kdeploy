@@ -20,5 +20,10 @@ describe('config', () => {
       name: 'realgeeks/geekstack',
       url: 'git@github.com:RealGeeks/geekstack.git',
     });
+
+    expect(config.targets.am1).to.eql({
+      name: 'am1',
+      url: 'https://mack.rg-infra.com',
+    });
   });
 });

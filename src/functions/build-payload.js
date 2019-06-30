@@ -31,6 +31,7 @@ module.exports = ({
       strategy: appConfig.strategy,
       path: appConfig.configRepoPath,
       imageName: appConfig.imageName,
+      imageTagScheme: appConfig.imageTagScheme,
       requiredStatuses: appConfig.requireStatuses || [],
     },
     notify: {

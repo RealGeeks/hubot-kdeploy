@@ -15,6 +15,7 @@ const buildAppSchema = ({ repos, targets }) => yup.object().shape({
   configRepoPath: yup.string().required(),
   defaultBranch: yup.string().notRequired(),
   imageName: yup.string().required(),
+  imageTagScheme: yup.string(),
   name: yup.string().required(),
   repo: yup.string().required(),
   requiredStatuses: yup

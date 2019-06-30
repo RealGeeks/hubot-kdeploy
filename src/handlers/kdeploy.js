@@ -18,7 +18,6 @@ const _ = require('lodash');
 const buildPayload = require('../functions/build-payload');
 const config = require('../config');
 
-const mackApiToken = process.env.HUBOT_KDEPLOY_MACK_API_KEY;
 const validSlug = '([-_\\.0-9a-z]+)';
 const prefix = 'unstable-kdeploy';
 
@@ -67,10 +66,13 @@ module.exports = (robot) => {
     }
 
     try {
+      const targetUrl = config.targets[payload.config.target].url;
+      const targetApiKey = process.env[`HUBOT_KDEPLOY_MACK_${payload.config.target.toUpperCase()}_API_KEY`];
+
       await got.post('/deployments', {
-        baseUrl: config.targets[payload.config.target].url,
+        baseUrl: targetUrl,
         headers: {
-          Authorization: `Bearer ${mackApiToken}`,
+          Authorization: `Bearer ${targetApiKey}`,
           'Content-Type': 'application/json',
         },
         json: true,

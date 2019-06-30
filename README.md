@@ -13,16 +13,20 @@ In hubot project repo, run:
 Then add **hubot-kdeploy** to your `external-scripts.json`:
 
 ```json
-[
-  "hubot-kdeploy"
-]
+["hubot-kdeploy"]
 ```
+
+Set these envars:
+
+HUBOT_KDEPLOY_PREFIX - deploy command prefix (default `kdeploy`, optional)
+HUBOT_KDEPLOY_CONFIG_JSON - location of the JSON config file (default project root, optional)
+HUBOT_KDEPLOY_MACK_XXX_API_KEY - the Mack API key for each target in config file (required)
 
 ## Sample Interaction
 
 ```
-user1>> hubot hello
-hubot>> hello!
+user1>> hubot kdeploy foobar to production
+mack>> Deploying foorbar to production
 ```
 
 ## NPM Module

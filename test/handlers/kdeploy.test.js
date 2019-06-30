@@ -5,7 +5,7 @@ const nock = require('nock');
 const { expect } = chai;
 
 const helper = new Helper('../../src/handlers/kdeploy.js');
-const prefix = 'unstable-kdeploy';
+const prefix = 'kdeploy';
 
 describe('kdeploy {appname}', () => {
   before(() => {

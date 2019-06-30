@@ -2,8 +2,9 @@
 //   A hubot script that deploys to K8s via Mack
 //
 // Configuration:
-//   MACK_HOST
-//   MACK_API_KEY
+//   HUBOT_KDEPLOY_CONFIG_JSON
+//   HUBOT_KDEPLOY_PREFIX
+//   HUBOT_KDEPLOY_MACK_XXX_API_KEY
 //
 // Commands:
 //   hubot kdeploy mack
@@ -19,7 +20,7 @@ const buildPayload = require('../functions/build-payload');
 const config = require('../config');
 
 const validSlug = '([-_\\.0-9a-z]+)';
-const prefix = 'unstable-kdeploy';
+const prefix = process.env.HUBOT_KDEPLOY_PREFIX || 'kdeploy';
 
 const deploySyntax = new RegExp(
   [

@@ -1,7 +1,7 @@
 {
   "name": "hubot-kdeploy",
   "description": "A hubot script that deploys to K8s via Mack",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Lars Levie <lars@realgeeks.com>",
   "main": "index.js",
   "scripts": {

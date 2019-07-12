@@ -24,7 +24,7 @@ module.exports = ({
       configRepository: configRepo.name,
       configBranch: configRepo.branch,
       repository: appConfig.repo,
-      branch: ref || appConfig.defaultBranch || 'master',
+      ref: ref || appConfig.defaultBranch || 'master',
     },
     config: {
       target: realTarget,

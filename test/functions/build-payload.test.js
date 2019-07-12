@@ -23,14 +23,14 @@ describe('build-payload', () => {
 
     const payload = buildPayload(args);
 
-    expect(payload.source.branch).to.eql('master');
+    expect(payload.source.ref).to.eql('master');
   });
 
   it('Uses ref if provided', () => {
     const args = Object.assign({}, validArgs);
     const payload = buildPayload(args);
 
-    expect(payload.source.branch).to.eql('production');
+    expect(payload.source.ref).to.eql('production');
   });
 
   it('Uses defaultBranch if set and ref missing', () => {
@@ -40,6 +40,6 @@ describe('build-payload', () => {
 
     const payload = buildPayload(args);
 
-    expect(payload.source.branch).to.eql('foobar');
+    expect(payload.source.ref).to.eql('foobar');
   });
 });

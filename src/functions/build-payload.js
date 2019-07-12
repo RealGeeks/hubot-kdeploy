@@ -32,7 +32,7 @@ module.exports = ({
       path: appConfig.configRepoPath,
       imageName: appConfig.imageName,
       imageTagScheme: appConfig.imageTagScheme,
-      requiredStatuses: appConfig.requireStatuses || [],
+      requiredContexts: appConfig.requiredContexts || [],
     },
     notify: {
       adapter,

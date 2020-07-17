@@ -83,7 +83,7 @@ module.exports = (robot) => {
       });
     } catch (err) {
       robot.logger.error(err);
-      msg.reply("Looks like I'm kaving trouble.");
+      msg.reply("Looks like I'm having trouble: ", err);
     }
   });
 
